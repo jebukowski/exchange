@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import rates from './rates';
+import exchanges from './exchanges';
 
-const appReducer = combineReducers({ rates });
+const appReducer = combineReducers({ exchanges });
 
 export default (state, action) => appReducer(state, action);
