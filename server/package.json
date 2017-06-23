@@ -1,0 +1,23 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "npm run clean && mkdirp dist && babel src -d dist --source-maps inline",
+    "clean": "rimraf dist",
+    "start": "npm run build && node dist"
+  },
+  "author": "J. Eric Bukowski",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "babel-preset-env": "^1.5.2",
+    "mkdirp": "^0.5.1",
+    "rimraf": "^2.6.1"
+  },
+  "dependencies": {
+    "express": "^4.15.3",
+    "isomorphic-fetch": "^2.2.1"
+  }
+}
