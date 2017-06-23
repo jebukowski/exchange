@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button, Error } from '../';
+import { Button, Error, Display } from '../';
 
 const Rates = ({ isLoading, errorMessage, bittrex, btcE, poloniex, fetchExchangeRates }) => (
   <div style={{ textAlign: 'center' }}>
@@ -12,6 +12,11 @@ const Rates = ({ isLoading, errorMessage, bittrex, btcE, poloniex, fetchExchange
     >
       Get exchange rates
     </Button>
+    <Display
+      bittrex={bittrex}
+      btcE={btcE}
+      poloniex={poloniex}
+    />
   </div>
 );
 
