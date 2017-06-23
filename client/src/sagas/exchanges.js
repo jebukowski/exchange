@@ -10,7 +10,38 @@ function* exchangeRatesRequest() {
     const btcE = yield api.btcE();
     const poloniex = yield api.poloniex();
 
-    yield put(actions.exchangeRatesSuccess({ bittrex, btcE, poloniex }));
+    const exchanges = {
+      bittrex: { ...bittrex, best: [] },
+      btcE: { ...btcE, best: [] },
+      poloniex: { ...poloniex, best: [] },
+    };
+
+    const topDrawer = Object.keys(exchanges).reduce((acc, exchange) => {
+      const ratesObject = exchanges[exchange];
+
+      if (acc === null) {
+        return {
+          'BTC-DASH': { exchange, rate: ratesObject['BTC-DASH'] },
+          'BTC-ETH': { exchange, rate: ratesObject['BTC-ETH'] },
+          'BTC-LTC': { exchange, rate: ratesObject['BTC-LTC'] },
+        };
+      }
+
+      Object.keys(acc).forEach(key => {
+        if (ratesObject[key] < acc[key].rate) {
+          acc[key].exchange = exchange;
+          acc[key].rate = ratesObject[key];
+        }
+      });
+
+      return acc;
+    }, null);
+
+    Object.keys(topDrawer).forEach(key => {
+      exchanges[topDrawer[key].exchange].best.push(key);
+    });
+
+    yield put(actions.exchangeRatesSuccess(exchanges));
   } catch (err) {
     yield put(actions.exchangeRatesError(err));
   }

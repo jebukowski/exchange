@@ -2,7 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const Display = ({ bittrex, btcE, poloniex }) => {
-  const mapRates = (exchange) => Object.keys(exchange).map(rate => <p>{exchange[rate]}</p>);
+  const mapRates = (exchange) => (
+    Object.keys(exchange).map((key, index) => { // eslint-disable-line
+      if (exchange.best.includes(key)) {
+        return <p key={index}><strong>{exchange[key]}</strong></p>;
+      } else if (key !== 'best') {
+        return <p key={index}>{exchange[key]}</p>;
+      }
+    })
+  );
 
   return (
     <div style={{ display: 'flex', textAlign: 'left', justifyContent: 'space-between' }}>
