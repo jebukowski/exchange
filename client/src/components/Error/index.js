@@ -7,6 +7,7 @@ const errorStyle = {
   borderStyle: 'solid',
   borderColor: 'red',
   backgroundColor: 'white',
+  marginBottom: '1em',
 };
 
 const Error = ({ children }) => (

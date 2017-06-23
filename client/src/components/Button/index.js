@@ -7,7 +7,7 @@ const buttonStyle = {
   borderStyle: 'solid',
   borderColor: 'black',
   backgroundColor: 'white',
-  marginTop: '1em',
+  fontSize: '0.8em',
 };
 
 const Button = ({ clickHandler, isDisabled, children }) => (
