@@ -27,3 +27,4 @@ const callFetch = (path) => (
 
 export const bittrex = () => callFetch('/bittrex');
 export const btcE = () => callFetch('/btcE');
+export const poloniex = () => callFetch('/poloniex');

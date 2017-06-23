@@ -8,8 +8,9 @@ function* exchangeRatesRequest() {
   try {
     const bittrex = yield api.bittrex();
     const btcE = yield api.btcE();
+    const poloniex = yield api.poloniex();
 
-    yield put(actions.exchangeRatesSuccess({ bittrex, btcE }));
+    yield put(actions.exchangeRatesSuccess({ bittrex, btcE, poloniex }));
   } catch (err) {
     yield put(actions.exchangeRatesError(err));
   }

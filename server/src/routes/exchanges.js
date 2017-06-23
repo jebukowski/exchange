@@ -57,4 +57,24 @@ router.get('/btcE', (req, res, next) => {
     });
 });
 
+router.get('/poloniex', (req, res, next) => {
+  request({
+    uri: 'https://poloniex.com/public?command=returnTicker',
+    json: true,
+  })
+    .then(response => {
+      const { BTC_DASH, BTC_ETH, BTC_LTC } = response;
+
+      res.json({
+        'BTC-DASH': Number(BTC_DASH.last),
+        'BTC-ETH': Number(BTC_ETH.last),
+        'BTC-LTC': Number(BTC_LTC.last),
+      });
+    })
+    .catch(err => {
+      res.status(500).send(err.message);
+      next(err);
+    });
+});
+
 export default router;
