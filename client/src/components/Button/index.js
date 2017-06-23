@@ -6,18 +6,24 @@ const buttonStyle = {
   borderStyle: 'solid',
   borderColor: 'black',
   backgroundColor: 'white',
+  marginTop: '1em',
 };
 
-const Button = ({ clickHandler, children }) => (
+const Button = ({ clickHandler, isDisabled, children }) => (
   <div>
-    <button onClick={clickHandler} style={buttonStyle}>
-      {children}
+    <button
+      onClick={clickHandler}
+      disabled={isDisabled}
+      style={buttonStyle}
+    >
+      {isDisabled ? '...loading' : children}
     </button>
   </div>
 );
 
 Button.propTypes = {
   clickHandler: PropTypes.func,
+  isDisabled: PropTypes.bool,
   children: PropTypes.string,
 };
 

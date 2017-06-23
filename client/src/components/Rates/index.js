@@ -4,11 +4,13 @@ import { Button, Error } from '../';
 const Rates = ({ isLoading, errorMessage, bittrex, btcE, poloniex, fetchExchangeRates }) => (
   <div style={{ textAlign: 'center' }}>
     <h1>Cryptocurrency Exchange Rates</h1>
-    <Button clickHandler={fetchExchangeRates}>
+    {errorMessage && <Error>{errorMessage}</Error>}
+    <Button
+      clickHandler={fetchExchangeRates}
+      isDisabled={isLoading}
+    >
       Get exchange rates
     </Button>
-    {isLoading && <p>...loading</p>}
-    {errorMessage && <Error>{errorMessage}</Error>}
   </div>
 );
 
