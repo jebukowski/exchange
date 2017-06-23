@@ -1,30 +1,24 @@
 import React, { PropTypes } from 'react';
-import { connect } from 'react-redux';
-import * as actions from '../../actions';
-import { Button } from '../';
+import { Button, Error } from '../';
 
-const Rates = ({ fetchExchangeRates, bittrex, btcE, poloniex }) => (
-  <div>
+const Rates = ({ isLoading, errorMessage, bittrex, btcE, poloniex, fetchExchangeRates }) => (
+  <div style={{ textAlign: 'center' }}>
     <h1>Cryptocurrency Exchange Rates</h1>
-    <Button clickHandler={fetchExchangeRates}>Get exchange rates</Button>
+    <Button clickHandler={fetchExchangeRates}>
+      Get exchange rates
+    </Button>
+    {isLoading && <p>...loading</p>}
+    {errorMessage && <Error>{errorMessage}</Error>}
   </div>
 );
 
-const mapStateToProps = (state) => ({
-  bittrex: state.exchanges.get('bittrex'),
-  btcE: state.exchanges.get('btcE'),
-  poloniex: state.exchanges.get('poloniex'),
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  fetchExchangeRates: () => dispatch(actions.exchangeRatesRequest()),
-});
-
 Rates.propTypes = {
-  fetchExchangeRates: PropTypes.func,
+  isLoading: PropTypes.bool,
+  errorMessage: PropTypes.string,
   bittrex: PropTypes.object,
   btcE: PropTypes.object,
   poloniex: PropTypes.object,
+  fetchExchangeRates: PropTypes.func,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Rates);
+export default Rates;

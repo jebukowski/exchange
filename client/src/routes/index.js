@@ -1,4 +1,4 @@
-import { App, Rates } from '../components';
+import { App, RatesContainer } from '../components';
 
 export default {
   path: '/',
@@ -9,7 +9,7 @@ export default {
   childRoutes: [
     {
       path: 'exchange-rates',
-      component: Rates,
+      component: RatesContainer,
     },
   ],
 };
