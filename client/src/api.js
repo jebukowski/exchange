@@ -16,11 +16,14 @@ const checkResponseStatus = (response, potentialErrorStatus) => {
 
 const parseJSON = (response) => response.json();
 
-export const bittrex = () => (
-  fetch('/bittrex', {
+const callFetch = (path) => (
+  fetch(path, {
     method: 'GET',
     headers: { 'Accept': 'application/json' },
   })
     .then(response => checkResponseStatus(response, 400))
     .then(parseJSON)
 );
+
+export const bittrex = () => callFetch('/bittrex');
+export const btcE = () => callFetch('/btcE');

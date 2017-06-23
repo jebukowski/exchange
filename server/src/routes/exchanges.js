@@ -2,12 +2,15 @@ import express from 'express';
 import request from 'request-promise';
 
 const router = express.Router();
-const acceptableMarketNames = ["BTC-DASH", "BTC-ETH", "BTC-LTC"];
+const acceptableMarketNames = ['BTC-DASH', 'BTC-ETH', 'BTC-LTC'];
 
 router.get('/bittrex', (req, res, next) => {
-  request('https://bittrex.com/api/v1.1/public/getmarketsummaries')
+  request({
+    uri: 'https://bittrex.com/api/v1.1/public/getmarketsummaries',
+    json: true,
+  })
     .then(response => {
-      const { success, message, result } = JSON.parse(response);
+      const { success, message, result } = response;
 
       if (!success) {
         throw Error(message);
@@ -27,6 +30,26 @@ router.get('/bittrex', (req, res, next) => {
       }, {});
 
       res.json(bittrex);
+    })
+    .catch(err => {
+      res.status(500).send(err.message);
+      next(err);
+    });
+});
+
+router.get('/btcE', (req, res, next) => {
+  request({
+    uri: 'https://btc-e.com/api/3/ticker/dsh_btc-eth_btc-ltc_btc',
+    json: true,
+  })
+    .then(response => {
+      const { dsh_btc, eth_btc, ltc_btc } = response;
+
+      res.json({
+        'BTC-DASH': dsh_btc.last,
+        'BTC-ETH': eth_btc.last,
+        'BTC-LTC': ltc_btc.last,
+      });
     })
     .catch(err => {
       res.status(500).send(err.message);

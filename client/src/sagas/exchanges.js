@@ -7,8 +7,9 @@ import * as types from '../actions/typeConstants';
 function* exchangeRatesRequest() {
   try {
     const bittrex = yield api.bittrex();
+    const btcE = yield api.btcE();
 
-    yield put(actions.exchangeRatesSuccess({ bittrex }));
+    yield put(actions.exchangeRatesSuccess({ bittrex, btcE }));
   } catch (err) {
     yield put(actions.exchangeRatesError(err));
   }
